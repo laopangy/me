@@ -1,0 +1,74 @@
+1、微服务是什么？
+    分布式、多个模块，每个模块都是单独的系统
+
+2、RPC框架是什么？
+    远程过程调用框架，允许不同的服务之间进行通信
+
+3、有哪些RPC框架？
+    springCloud、dubbo
+
+4、SpringCloud与dubbo的区别？
+    1、SpringCloud是微服务架构的解决方案，dubbo主要用于服务与治理
+    2、SpringCloud是基于Spring的，dubbo是独立的
+    3、SpringCloud是采用HTTP协议进行远程调用，接口一般都是Rest风格；dubbo采用的是dubbo协议，接口一般都是java的service接口，格式固定
+
+5、SpringCloud基础组件有哪些？
+    1.服务注册与发现：nacos
+    2.配置中心：nacos config
+    3.API网关：gateway    
+    4.服务间调用与负载均衡：OpenFeign + Spring Cloud LoadBalancer
+    5.熔断与限流：Sentinel
+    6.分布式链路追踪：Sleuth + Zipkin
+
+6、SpringCloud增强式组件有哪些？
+    1.消息驱动：Kafka
+    2.安全认证：Spring Security
+    3.服务网格：Istio + Envoy
+    4.分布式任务调度：XXL-JOB
+    5.分布式事务：Seata
+    6.监控告警：Prometheus + Grafana
+
+7、在SpringCloud中，如何实现服务注册与发现？
+    使用Nacos作为服务注册中心，服务提供者在启动时将自身信息注册到Nacos，服务消费者通过Nacos获取服务提供者的信息。
+
+8、在SpringCloud中，如何实现配置中心？
+    使用Nacos Config作为配置中心，服务提供者和消费者可以从Nacos获取配置信息，实现动态配置管理。
+
+9、在SpringCloud中，如何实现API网关？
+    使用Spring Cloud Gateway作为API网关，提供路由、过滤、负载均衡等功能。
+
+10、在SpringCloud中，如何实现服务间调用与负载均衡？
+    使用OpenFeign作为声明式HTTP客户端，结合Spring Cloud LoadBalancer实现服务间调用和负载均衡。    
+
+11、在SpringCloud中，如何实现熔断与限流？
+    使用Sentinel作为熔断与限流组件，通过注解或配置规则实现服务的熔断和限流。
+
+12、在SpringCloud中，如何实现分布式链路追踪？
+    使用Sleuth和Zipkin实现分布式链路追踪，Sleuth用于生成追踪信息，Zipkin用于收集和展示追踪数据。 
+
+13、在SpringCloud中，如何实现消息驱动？
+    使用Kafka作为消息中间件，服务之间通过Kafka进行异步消息传递。      
+
+14、在SpringCloud中，如何实现安全认证？
+    使用Spring Security进行安全认证，可以通过OAuth2或JWT等方式实现服务的安全访问控制。
+
+15、在SpringCloud中，如何实现服务网格？
+    使用Istio和Envoy实现服务网格，提供流量管理、安全策略、监控等功能。
+
+16、在SpringCloud中，如何实现分布式任务调度？
+    使用XXL-JOB作为分布式任务调度框架，支持定时任务和分布式任务的执行。
+
+17、在SpringCloud中，如何实现分布式事务？
+    使用Seata作为分布式事务解决方案，支持AT模式和TCC模式等多种事务模型。
+
+18、在SpringCloud中，如何实现监控告警？
+    使用Prometheus作为监控系统，Grafana作为可视化工具，实现服务的监控和告警。
+    
+19、SpringCloud的版本管理是如何进行的？
+    SpringCloud使用版本号来管理不同的组件和依赖，通常与Spring Boot的版本相对应。可以通过Spring Cloud BOM（Bill of Materials）来统一管理版本，确保各个组件之间的兼容性。     
+
+20、              
+
+
+
+

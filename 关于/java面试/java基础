@@ -1,0 +1,269 @@
+1、重写与重载？
+    重写：
+        发生在父类与子类之间，子类继承父类的方法，方法名称、方法参数列表、方法返回值都相同，子类的的访问修饰符的访问权限不能比父类高。
+    重载：
+        同一个类中生成多个方法名相同的类
+
+2、static关键字的作用？
+    简介来说就是：方便在没有创建对象的时候进行调用
+    静态变量：静态变量在类加载的时候获取一次内存空间，节省内存空间。
+    静态方法：可以直接用类名调用，
+    静态代码块：它不在任何类中，JVM加载类时会执行这些静态代码块，如果类中有多个，那么会按照顺序依次执行
+
+3、父类和子类中静态代码块、非静态代码块、构造函数的执行顺序？
+    父类中的静态代码块→子类中的静态代码块→父类非静态代码块→父类构造函数→子类非静态代码块→子类构造函数
+
+4、接口与抽象类的区别？
+    抽象类：
+        抽象类中可以包含抽象方法，这些方法没有方法体，只能在子类中实现
+        抽象类中可以包含具体的方法体，可以直接使用
+        抽象类中可以有构造方法，但不能实例化，只能子类调用
+        抽象类中可以有成员变量，这些变量可以是各种类型
+    接口：
+        接口中的所有方法默认都是public abstract，必须在实现类中实现。
+        接口中的成员变量默认都是public static abstract，必须赋值，不能被修改。
+        一个类可以多实现
+
+5、接口里的方法有没有默认实现？
+    接口中的方法可以用有默认实现，通过default关键字实现；
+    如果出现实现多个接口且这些接口有相同签名方式的时候必须显性解决，通过super指定。
+
+6、Java中的值传递和引用传递？
+    值传递：
+        值传递指的是在函数调用的时候，将实际参数的值直接赋值给函数，在函数中对参数进行的修改不影响原来的值。
+    引用传递：
+        引用传递指的是在函数调用的时候，将实际参数的地址传递给函数，在函数中对参数进行的修改会影响实际的值。
+    String类型：
+        特殊的引用类型，但是他的行为基于基础数据类型，不会影响实际的值
+
+7、JDK与JRE的区别？
+    JDK中包含了JRE，同时包含了编译java的编译器javac，还包含了很多java程序调试和分析的工具。简单来说，如果你只想
+    运行java应用，直接下载JRE即可，如果需要编写java程序，那么就需要下载JDK。
+    JDK：java开发工具包，提供了java的开发与运行环境；
+    JRE：java运行环境，为java的运行提供所需的环境；
+
+
+8、java中的数据类型？
+    1.基础数据类型（8种）
+        整数类型（int32位、long64位、byte8、short16位）
+        浮点类型（double64位双精度、float32位单精度）
+        字符类型（char16位unicode字符）
+        布尔类型（boolean）
+    2.引用数据类型（4种）    应用类型存储的是对象的引用地址而非实际值
+        类class
+            1.预定义类（如：String、ArrayList）
+                List<String> list = new ArrayList<>();
+                list.add("Java");
+                list.add("Python");
+            2.自定义类    
+                class Student {
+                    String name;
+                    int age;
+                    Student(String name, int age) {
+                        this.name = name;
+                        this.age = age;
+                    }
+                }
+                Student stu = new Student("Tom", 20);
+        接口（Interface）
+        数组（Array）
+        枚举（Enum）
+
+9、==与equals的区别？
+    ==：对于基础数据类型来说是值比较（int、double、char），对于引用数据类型来说比较的是引用地址（String、Object）；
+    equals：默认比较的是引用地址。但许多类（如String、Integer）重写了了该方法，是其比较的是对象内容是否相等；
+    常见陷阱与特殊场景：
+        1、包装类（如：Integer）的缓存问题：超出缓存范围时判定为false：
+            Integer a = 127;
+            Integer b = 127;
+            System.out.println(a == b); // true（缓存范围内的值复用同一对象）
+
+            Integer c = 128;
+            Integer d = 128;
+            System.out.println(c == d); // false（超出缓存范围，新建对象）
+        2、equals() 的防空处理：将已知对象放前面比较
+            
+            String s1 = null;
+            System.out.println(s1.equals("hello")); // 抛出NullPointerException
+
+            // 正确写法：将已知对象放在前面
+            System.out.println("hello".equals(s1)); // false（避免空指针）
+
+10、java中hashcode()方法是什么？
+    是一个定义在Object类中的方法，用于返回对象的哈希值（int类型的整数），核心作用是支持基于哈希表的数据接口的高效存储和查找。
+
+11、两个对象的 hashCode()相同，则 equals()也一定为 true，对吗？
+    不对，不一定返回true。
+    核心规则：
+        equals()为true-->hashCode()一定为true 此为强制约束；
+        hashCode()相同-->equals()不一定为true，因为允许哈希冲突
+
+12、final 在 java 中有什么作用？
+    final修饰类：最终类，不能被继承
+    final修饰方法：不能被重写
+    final修饰变量：通常叫常量，必须被初始化，初始化后的值不能被修改
+    final参数：禁止在方法内修改参数值
+
+13、java 中操作字符串都有哪些类？它们之间有什么区别？
+    String、StringBuffer、StringBuilder
+    String和StringBuffer、StringBuilder的区别在于String声明的是不可变的对象，每次操作都会生成新的String对象，然后指针指向新的String对象
+    StringBuffer、StringBuilder可以在原有对象的基础上操作，所以在经常更改字符串内容的情况下最好不使用String
+    StringBuffer与StringBuilder的区别在于StringBuffer是线程安全的，而StringBuiler是非线程安全的，但是StringBuilder的性能比StringBuffer强
+    单线程环境推荐使用StringBuiler，多线程推线StringBuffer。
+        
+14、String str="i"与 String str=new String("i")一样吗？
+    不一样，内存分配方式不一样，第一种分配在常量池中，第二种分配在堆内存中。
+
+15、java中的事务传播机制有哪些？
+    1.默认的传播机制：如果存在事务则加入此事务，如果不存在则新增事务
+    2.无论当前是否存在事务都新增一个事务，如果存在事务，原事务挂起
+    3.如果存在事务，则加入此事务，如果不存在，则以非事务的方式执行
+    4.以非事务的方式执行，如果存在事务，则原事务挂起
+    5.强制以非事务的方式执行，如果存在事务，则抛出异常
+    6.当前存在事务则抛出异常
+    7.如果当前存在事务，则嵌套事务运行，如果没有则新增事务
+  
+16、java开发中事务失效的场景？
+    1.方法非public修饰
+        Spring的AOP代理无法拦截非public方法的事务注解。
+    2.自调用（同一类内部调用事务方法）
+    3.异常类型未被捕捉或者配置错误
+    4.异常被catch后未重新抛出异常
+    5.事务传播机制配置错误
+    6.多数据源未指定事务管理器
+    7.数据库不支持事务处理
+    8.事务方法内开启新线程
+    9.未启用事务管理
+    10.@Transactional注解被错误覆盖
+        子类重写父类方法时未添加@Transactional注解，或父类方法的事务被子类覆盖
+    11.嵌套事务未正确配置
+    12.方法签名中存在final和static关键字（final和static方法无法被动态代理增强）
+
+17、事务的隔离级别？
+    读未提交：事务可以读取其他事务未提交的数据
+        可能会出现：
+            脏读：在读未提交的情况下，一个事物读取到了另一个事物还没提交的数据    
+            幻读：在一个事务下，读取同一条件的数据是，两次返回的数据条数不一样
+            不可重复读：在一个事务下，读取同一条件的数据返回的数据值不一致
+    读已提交：事务只能读取已提交的数据（Oracle、PostgreSQL默认隔离级别）
+    可重复读：事务中读取同一条件的数据结果一致（mysql的默认隔离级别）
+    串行化：事务串行执行，完全隔离
+
+18、java异常？
+    java异常体系继承制thorwable类，主要分一下两种
+    1.Error：程序无法处理的异常，出现此问题一般程序会立即终止
+    2.Exception：此错误一般都由java异常处理机制所处理
+
+19、SpringBoot自动装配原理？
+    启动类上有一个特别重要的注解。@SpringBootApplication，它内部有三个核心注解:
+    @SpringBootConfiguration:与configuration的作用相似，它允许上下文创建额外的bean，然后配置到其他配置类中
+    @ComponentScan：此注解用于扫描类头上有@Service、@Controller等注解的类进行扫描
+    @EnableAutoConfiguration:这个注解是SpringBoot自动装配的核心注解，这个注解中导入了selectImports类，这个类中的springImports方法能读取Spring.factory文件，
+    这个文件中有自动装配的所有配置类的类名，然后这个类名通过验证、去重，排除监听器等操作后会返回一个String数组，然后springBoot会根据这个数组完成配置类的加载
+
+20、SpringBoot的启动流程？
+    1、启动入口main方法
+    2、SpringApplication初始化
+    3、启动run方法
+    4、初始化环境配置
+    5、创建ApplicationContext   
+    6、准备上下文注册启动类
+    7、刷新上下文（Bean初始化、自动配置、启用服务器）
+    8、执行Runner 
+    9、完成启动
+    10、返回上下文对象
+
+21、聚簇索引与非聚簇索引的区别？
+    聚簇索引：将数据和索引放一起，通过找索引就能找到对应的数据
+    非聚簇索引：将数据和索引分开，索引中存放的是数据的地址，先通过索引找地址，然后通过地址匹配对应的数据。
+
+22、造成循环依赖的原因以及如何解决循环依赖？
+    原因：A依赖B、B依赖A，但是A和B都没有完成初始化的情况就会出现循环依赖问题
+    解决：通过Set赋值的方式，在A和B还没有依赖完成之前，通过set方式对A和B进行赋值，这样后续在互相依赖是就不会有任何问题
+
+23、SpringMVC的工作流程？
+    1、用发送请求到前端控制器DispatcherSerlet
+    2、DispatcherServlet根据url找到对应的处理器映射器HandlerMapping
+    3、HandlerMapping返回HandlerExecutionChain对象
+    4、DispatcherServlet调用处理器适配器HandlerAdapter执行Handler
+    5、HandlerAdapter执行Handler，返回ModelAndView对象
+    6、DispatcherServlet调用视图解析器ViewResolver
+    7、DispatcherServlet渲染视图，返回给用户
+
+24、ArrayList的扩容机制？
+    1.默认容量：ArrayList的默认容量是10
+    2.扩容策略：当元素数量超过当前容量时，ArrayList会进行扩容，新的容量为原容量的1.5倍
+    3.内存拷贝：扩容时会创建一个新的数组，并将原数组中的元素拷贝到新数组中
+    4.性能影响：频繁的扩容会影响性能，因此在创建ArrayList时可以指定初始容量
+
+25、explain 查看索引：
+    1.type访问类型（如：consf、ref、index、all）
+    2.key实际使用的索引
+    3.rows扫描的数据行数
+    4.extra额外的一些信息：using index、using where 等））
+    5.key_len索引长度，可判断是否使用了索引所有字段
+
+26、Collection与Collections的区别？
+    Collection是集合类的上级接口，子接口有arrayList、LinkedList、HashSet等
+    Collections是集合类的工具类，可以实现对集合的排序、查找、反转等操作
+
+27、讲一讲hashMapp？
+    键值对方式存储数据、允许null设为Key值，不保证键值对存储的顺序、线程不安全
+
+28、HTTP接口交互的过程？
+    客户端发送HTTP请求：
+        1.构建请求
+            确认协议：https/http
+            确认请求方式：post、get
+            设置URL路径
+            添加请求头信息：
+                Content-Type：请求体的类型
+                Accept：客户端可以接收的响应类型
+                User-Agent：浏览器信息
+                Authorization：认证消息
+            组装请求体：Body比如json、或者表单数据
+        2.发送请求
+            建立连接：通过TCP三次握手与服务器端建立连接
+            传输数据：序列化请求体（如JSON->二进制流）并发送
+        3、处理响应：
+            接收状态码：成功200、重定向302、客户端错误404、服务端错误500
+            解析响应头：获取content-Type、Content-Length等信息
+            读取响应体：反序列化数据（JSON->java对象）。
+    服务器端处理HTTP请求：
+        1.接收请求
+            监听端口：服务端（如 Tomcat）监听指定端口（默认 8080）    
+            解析请求：
+                分析请求行（方法、URL、协议版本）
+                解析请求头
+                读取请求体
+            路由分发：
+                匹配路径：根据URL映射至对应的处理类中，Spring中就是controller
+                参数绑定：从 URL 路径（@PathVariable）、查询参数（@RequestParam）、请求体（@RequestBody）提取参数。
+            执行业务逻辑：
+                调用service层处理核心业务逻辑
+                事务管理
+            构建相应：
+                设置状态码
+                组装响应头
+                序列化响应体
+            返回响应：
+                发送数据：将序列化后的数据通过TCP连接返回客户端
+                关闭连接
+
+29、TCP的三次握手
+    序列号递增，第一次为y，第二次就是y+1
+    第一次握手：发送请求到服务端，告知客户端的初始序列号
+    第二次握手：收到请求，并表示同意连接，并向客户端告知服务端的初始序列号
+    第三次握手：客户端收到服务器端的请求，确认服务器端的初始序列号，连接建立
+
+
+
+30、为什么TCP握手不是两次或者四次？
+    1.两次握手：客户端发送请求，服务端收到请求，直接返回请求，客户端无法确认服务端是否准备好
+    2.四次握手：多余了，第三次握手已经确认了双方的初始序列号                    
+
+
+
+
+
+
